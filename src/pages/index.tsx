@@ -1,6 +1,9 @@
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 
+import { Hero } from "@/components/Hero";
+import { Networking } from "@/components/Networking";
+import { Profile } from "@/components/Profile";
 import { Section } from "@/components/Section";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -33,54 +36,14 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
       <SiteHeader brand={content.brand} />
 
       <main id="main" tabIndex={-1}>
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="container">
-            <p className="kicker">{content.hero.kicker}</p>
-            <h1 id="hero-title">{content.hero.name}</h1>
-            <p className="intro">{content.hero.intro}</p>
-          </div>
-        </section>
+        <Hero hero={content.hero} />
 
         <Section id="profile" number={1} title={content.labels.profile}>
-          <div
-            className="bio"
-            dangerouslySetInnerHTML={{ __html: profileHtml }}
-          />
-          <dl className="facts">
-            {content.profile.facts.map((fact) => (
-              <div className="fact" key={fact.label}>
-                <dt>{fact.label}</dt>
-                <dd>
-                  {"value" in fact ? (
-                    <>
-                      {fact.highlight ? (
-                        <span className="dot" aria-hidden="true" />
-                      ) : null}
-                      {fact.value}
-                    </>
-                  ) : (
-                    <a
-                      className="textLink"
-                      href={fact.link.href}
-                      download={fact.link.download || undefined}
-                    >
-                      {fact.link.label}
-                    </a>
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <Profile profile={content.profile} profileHtml={profileHtml} />
         </Section>
 
         <Section id="networking" number={2} title={content.labels.networking}>
-          <ul className="links">
-            {content.networking.map((link) => (
-              <li key={link.id}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
+          <Networking links={content.networking} />
         </Section>
 
         <Section id="experience" number={3} title={content.labels.experience}>

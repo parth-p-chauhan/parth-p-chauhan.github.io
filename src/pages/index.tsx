@@ -3,6 +3,8 @@ import Head from "next/head";
 
 import { Section } from "@/components/Section";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SkipLink } from "@/components/SkipLink";
 import { loadContent, type LoadedContent } from "@/lib/content";
 
 interface HomeProps extends LoadedContent {
@@ -27,7 +29,10 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main id="main">
+      <SkipLink />
+      <SiteHeader brand={content.brand} />
+
+      <main id="main" tabIndex={-1}>
         <section className="hero" aria-labelledby="hero-title">
           <div className="container">
             <p className="kicker">{content.hero.kicker}</p>

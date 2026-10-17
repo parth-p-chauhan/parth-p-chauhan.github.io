@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SkipLink } from "@/components/SkipLink";
 import { TechStack } from "@/components/TechStack";
+import { useReveal } from "@/hooks/useReveal";
 import { loadContent, type LoadedContent } from "@/lib/content";
 
 interface HomeProps extends LoadedContent {
@@ -26,6 +27,8 @@ export const getStaticProps: GetStaticProps<HomeProps> = () => {
 };
 
 export default function Home({ content, profileHtml, year }: HomeProps) {
+  useReveal();
+
   return (
     <>
       <Head>

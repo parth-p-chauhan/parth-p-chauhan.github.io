@@ -1,6 +1,6 @@
 # Spec: Personal Portfolio Site
 
-Status: **Approved — 2026-10-17**
+Status: **Approved — 2026-10-17 (placeholder content phase)**
 Date: 2026-10-17
 Reference design: `/Users/parth.chauhan/apps/Minimal-Frontend-Portfolio/frontend-engineer-portfolio.html`
 
@@ -185,23 +185,28 @@ passed to the page, so `marked` never reaches the client bundle.
 - `getStaticProps` returns `{ content, profileHtml }`. Changing content requires
   a rebuild; that is acceptable for this site.
 
-### Content still needed (blocking)
+### Content rollout
 
-These are placeholders until Parth supplies real values:
+Phase 1 ships clearly marked placeholder content so the design and content
+pipeline can be built and reviewed. Phase 2, a separate post-stack content PR,
+replaces every placeholder with Parth's real copy and résumé. The placeholder
+phase must not use another person's identity.
 
-| Field                                           | Status   |
-| ----------------------------------------------- | -------- |
-| Name, kicker, intro                             | Needed   |
-| Meta title/description/canonical URL            | Needed   |
-| Location and timezone                           | Needed   |
-| Availability wording                            | Needed   |
-| Email, GitHub, LinkedIn, X URLs                 | Needed   |
-| Work history: company, role, dates, description | Needed   |
-| Tech stack groups                               | Needed   |
-| `public/resume.pdf`                             | Needed   |
-| `public/og.png`                                 | Optional |
+| Field                                           | Phase 1                         | Phase 2 |
+| ----------------------------------------------- | ------------------------------- | ------- |
+| Name, kicker, intro                             | Real name, generic intro        | Final   |
+| Meta title/description/canonical URL            | Real title, generic description | Final   |
+| Location and timezone                           | `City, Country (TZ)`            | Final   |
+| Availability wording                            | Generic                         | Final   |
+| Email, GitHub, LinkedIn, X URLs                 | GitHub real; others placeholder | Final   |
+| Work history: company, role, dates, description | Clearly marked placeholders     | Final   |
+| Tech stack groups                               | Generic frontend stack          | Final   |
+| `public/resume.pdf`                             | Placeholder PDF                 | Final   |
+| `public/og.png`                                 | Monogram                        | Final   |
 
-Reference copy from Alex Mercer must not survive in the final site.
+Placeholder strings must be obvious in review (for example `Company name`,
+`Role title`, `hello@example.com`, `City, Country (TZ)`). Reference copy from
+Alex Mercer must never be used, even temporarily.
 
 ## Project structure
 
@@ -399,22 +404,22 @@ separate, approved change.
       focus.
 - [ ] No horizontal scroll at any viewport in the matrix.
 - [ ] `pnpm check` and `pnpm build` pass; `out/` contains the page and résumé.
-- [ ] No Alex Mercer / example.com placeholder content remains.
+- [ ] Placeholder copy is clearly marked and listed for the Phase 2 content
+      pass; no Alex Mercer / example.com identity is used.
 - [ ] Lighthouse (desktop, production build) targets: Performance ≥ 95,
       Accessibility 100, Best Practices ≥ 95, SEO ≥ 95.
 
 ## Open questions
 
-1. **Real content** — the table above is still empty. Can you provide résumé,
-   work history, stack, location/timezone, availability, email, and social URLs?
-2. **Markdown dependency** — approve `marked` for `profile.md`, or keep the bio
-   as plain paragraphs inside JSON?
-3. **Section labels** — keep "Profile", "Networking", "Work Experience", "Tech
-   Stack", or rename (e.g. "About", "Elsewhere")?
-4. **Theme default** — follow the OS, or default to light regardless of system?
-5. **Canonical URL** — confirm `https://parth-p-chauhan.github.io/` until a
-   custom domain exists.
-6. **Footer note** — "Built with Next.js", or omit the note entirely?
-7. **Social preview** — do you want a generated `og.png` monogram, or skip it
-   for now?
-8. **Additional pages** — confirm projects/blog are out of scope for this spec.
+No blocking questions for Phase 1. The following are confirmed as defaults:
+
+- `marked` is used for `profile.md`.
+- Section labels stay as specified.
+- Theme follows the OS by default.
+- Canonical URL is `https://parth-p-chauhan.github.io/`.
+- Footer note is "Built with Next.js".
+- `og.png` is generated from the monogram.
+- Projects and blog remain out of scope.
+
+Phase 2 needs Parth's real content and résumé, and happens after the ten-PR
+stack merges.

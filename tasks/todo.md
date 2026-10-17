@@ -27,13 +27,15 @@ merges, then retargets to `main`.
   - Files: `SPEC.md`, `tasks/plan.md`, `tasks/todo.md`.
   - Depends: none.
 
-- [ ] **Task 2 — Add real portfolio content**
-  - Acceptance: schema-valid JSON; real bio; résumé PDF; no placeholder copy.
-  - Verify: JSON parse, `file public/resume.pdf`, format check, manual review.
-  - Files: `content/site.json`, `content/profile.md`, `public/resume.pdf`,
-    optional `public/og.png`.
-  - Depends: Task 1 and content from Parth.
-  - Gate: do not merge placeholders.
+- [ ] **Task 2 — Add placeholder content scaffold**
+  - Acceptance: schema-valid JSON; obvious placeholders; no Alex Mercer
+    identity; placeholder bio; README lists every placeholder; placeholder PDF.
+  - Verify: JSON parse, `file public/resume.pdf`, format check, grep for
+    placeholder identity.
+  - Files: `content/site.json`, `content/profile.md`, `content/README.md`,
+    `public/resume.pdf`.
+  - Depends: Task 1.
+  - Note: replaced by the post-stack content pass.
 
 - [ ] **Task 3 — Content pipeline and semantic render**
   - Acceptance: loader, validator, `getStaticProps`, Markdown conversion; all
@@ -105,6 +107,15 @@ merges, then retargets to `main`.
     `public/robots.txt`, `public/favicon.svg`, `public/og.png`.
   - Depends: Task 9.
 
+## Post-stack
+
+- [ ] **Content pass — replace every placeholder**
+  - Acceptance: real JSON/MD content, real résumé, no placeholder strings.
+  - Verify: `pnpm check`, `pnpm build`, content-edit test, invalid-content test,
+    Lighthouse recheck.
+  - Files: `content/*`, `public/resume.pdf`, `public/og.png`.
+  - Depends: PR 10 merged and content supplied.
+
 ## Checkpoints
 
 - [ ] **After Task 3** — CI green, content renders, invalid content fails build
@@ -115,7 +126,7 @@ merges, then retargets to `main`.
 ## Pre-flight
 
 - [ ] Spec approved and open questions resolved
-- [ ] Real content and résumé received
+- [ ] Placeholder content approach confirmed
 - [ ] `marked` approved
 - [ ] Intermediate deploy policy confirmed
 - [ ] `.agents/` handling decided

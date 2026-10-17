@@ -141,40 +141,44 @@ docs-only PR. No application code changes.
 
 **Estimated scope:** S
 
-### Task 2: Add real portfolio content
+### Task 2: Add placeholder content scaffold
 
-**Description:** Encode Parth's real copy, links, work history, and stack in the
-content files, and add the résumé PDF. This PR is data-only; nothing renders it
-yet.
+**Description:** Add schema-valid, clearly marked placeholder content so the
+design and pipeline can be built now. A post-stack content PR replaces it with
+Parth's real copy.
 
 **Acceptance criteria:**
 
 - [ ] `content/site.json` conforms to the schema in `SPEC.md`.
-- [ ] `content/profile.md` contains the real bio.
-- [ ] `public/resume.pdf` exists and opens.
-- [ ] No Alex Mercer, Copenhagen, or `example.com` placeholders remain.
-- [ ] Every content field in the spec's blocking table is filled.
+- [ ] Placeholders are obvious in review (`Company name`, `Role title`,
+      `City, Country (TZ)`, `hello@example.com`).
+- [ ] No Alex Mercer or Copenhagen identity is used.
+- [ ] GitHub points at the real profile; other social links are placeholders.
+- [ ] `content/profile.md` contains a short placeholder bio.
+- [ ] `content/README.md` lists every placeholder to replace.
+- [ ] `public/resume.pdf` exists, opens, and is marked as a placeholder.
 
 **Verification:**
 
 - [ ] JSON parses: `node -e 'JSON.parse(require("fs").readFileSync("content/site.json","utf8"))'`
 - [ ] `file public/resume.pdf`
 - [ ] `pnpm exec oxfmt --check content`
+- [ ] `grep -R "Alex Mercer\|Copenhagen" content public` returns nothing
 - [ ] Manual read-through against the spec schema
 
-**Dependencies:** Task 1 and real content from Parth
+**Dependencies:** Task 1
 
 **Files likely touched:**
 
 - `content/site.json`
 - `content/profile.md`
+- `content/README.md`
 - `public/resume.pdf`
-- `public/og.png` (optional)
 
 **Estimated scope:** S
 
-**Gate:** Do not merge placeholder content. If real content is not ready, stop
-after Task 1 and keep this PR in draft.
+**Note:** A separate post-stack content pass replaces these values. This PR is
+not the final content.
 
 ### Task 3: Add content pipeline and semantic render
 
@@ -447,6 +451,42 @@ stack.
 
 **Estimated scope:** M (5 files plus QA fixes)
 
+### Post-stack: Replace placeholder content
+
+**Description:** After PR 10 merges, replace every placeholder with Parth's real
+copy and résumé. This is a separate PR, not part of the ten-PR design stack.
+
+**Acceptance criteria:**
+
+- [ ] Every item in `content/README.md` is replaced.
+- [ ] `content/site.json` and `content/profile.md` contain final copy.
+- [ ] `public/resume.pdf` is the real résumé.
+- [ ] No placeholder strings remain in `content/` or `public/`.
+- [ ] A content-only edit changes the rebuilt page without component changes.
+
+**Verification:**
+
+- [ ] `pnpm check`
+- [ ] `pnpm build`
+- [ ] `grep -R "Company name\|Role title\|hello@example.com\|City, Country" content public`
+      returns nothing
+- [ ] Content edit test: change one JSON value and one Markdown paragraph,
+      rebuild, confirm the page updates
+- [ ] Invalid-content failure test
+- [ ] Lighthouse recheck
+
+**Dependencies:** PR 10 merged and real content supplied
+
+**Files likely touched:**
+
+- `content/site.json`
+- `content/profile.md`
+- `content/README.md`
+- `public/resume.pdf`
+- `public/og.png`
+
+**Estimated scope:** M
+
 ## Checkpoints
 
 ### Checkpoint: After Task 3
@@ -479,34 +519,36 @@ stack.
 
 ## Risks and mitigations
 
-| Risk                                         | Impact | Mitigation                                                                |
-| -------------------------------------------- | ------ | ------------------------------------------------------------------------- |
-| Real content is not ready                    | High   | Block PR 2; keep it draft; do not merge placeholder identity              |
-| Stacked branches drift or conflict           | Medium | Merge strictly bottom-up; squash; rebase with `--onto`; never reorder     |
-| Intermediate merges deploy unfinished design | Medium | Accept, or pause the deploy workflow until the stack lands (ask first)    |
-| Visual fidelity drifts from the reference    | High   | Freeze tokens; compare screenshots at 390/820/1440; no "close enough"     |
-| `marked` leaks into client JS                | Medium | Import only in `getStaticProps`; grep `.next/static` in Task 3            |
-| Theme flash or wrong icon state              | Medium | Pre-paint script; manual reload tests in both themes                      |
-| Local `pnpm check` fails on `.agents/`       | Low    | Format or exclude the vendored skill locally; CI is unaffected            |
-| GitHub CLI missing                           | Low    | Use the web UI or install `gh` with approval                              |
-| Content validation is too weak               | Medium | Cover required fields, arrays, ids, hrefs, and referenced files in Task 3 |
-| Static export breaks on a server-only API    | High   | No API routes, middleware, ISR, or `getServerSideProps`; build every PR   |
-| "Built with Next.js" footer mismatch         | Low    | Confirm wording before Task 4; it is a one-line content change            |
+| Risk                                         | Impact | Mitigation                                                                                         |
+| -------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------- |
+| Placeholder content deploys to production    | Medium | Make placeholders obvious; track them in `content/README.md`; replace in the post-stack content PR |
+| Stacked branches drift or conflict           | Medium | Merge strictly bottom-up; squash; rebase with `--onto`; never reorder                              |
+| Intermediate merges deploy unfinished design | Medium | Accept, or pause the deploy workflow until the stack lands (ask first)                             |
+| Visual fidelity drifts from the reference    | High   | Freeze tokens; compare screenshots at 390/820/1440; no "close enough"                              |
+| `marked` leaks into client JS                | Medium | Import only in `getStaticProps`; grep `.next/static` in Task 3                                     |
+| Theme flash or wrong icon state              | Medium | Pre-paint script; manual reload tests in both themes                                               |
+| Local `pnpm check` fails on `.agents/`       | Low    | Format or exclude the vendored skill locally; CI is unaffected                                     |
+| GitHub CLI missing                           | Low    | Use the web UI or install `gh` with approval                                                       |
+| Content validation is too weak               | Medium | Cover required fields, arrays, ids, hrefs, and referenced files in Task 3                          |
+| Static export breaks on a server-only API    | High   | No API routes, middleware, ISR, or `getServerSideProps`; build every PR                            |
+| "Built with Next.js" footer mismatch         | Low    | Confirm wording before Task 4; it is a one-line content change                                     |
 
 ## Open questions
 
-1. Approve the planning assumptions above, especially `marked`, theme default,
-   labels, footer note, OG image, and out-of-scope pages.
-2. Provide the real content and résumé PDF before Task 2 merges.
-3. Are intermediate deployments acceptable, or should deploys pause until the
-   stack is complete?
-4. Should `.agents/` and `skills-lock.json` be committed or gitignored?
-5. Is installing `gh` approved, or should PRs be opened in the web UI?
+No blocking questions for Phase 1. Real content is deliberately deferred to the
+post-stack content PR. The defaults are:
+
+1. `marked` is approved.
+2. Section labels, OS-default theme, canonical URL, footer note, and OG image
+   follow the spec.
+3. Intermediate deployments are accepted.
+4. `.agents/` and `skills-lock.json` stay local and untracked.
+5. PRs are opened in the web UI until `gh` is installed.
 
 ## Definition of done
 
 - All ten PRs merged in order, each with green CI.
 - `main` builds and deploys to GitHub Pages.
-- Every success criterion in `SPEC.md` is checked.
-- No placeholder identity or copy remains.
+- Every Phase 1 success criterion in `SPEC.md` is checked.
 - `content/site.json` and `content/profile.md` are the only places to edit copy.
+- The post-stack content PR is tracked and replaces every placeholder.

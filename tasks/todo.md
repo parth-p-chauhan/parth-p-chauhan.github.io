@@ -2,6 +2,9 @@
 
 Plan: [`tasks/plan.md`](./plan.md) · Spec: [`SPEC.md`](../SPEC.md)
 
+Status: implementation complete on stacked branches. PRs are not yet created;
+`main` is unchanged.
+
 Merge strictly top to bottom. Each PR targets the branch above it until that PR
 merges, then retargets to `main`.
 
@@ -20,14 +23,14 @@ merges, then retargets to `main`.
 
 ## Tasks
 
-- [ ] **Task 1 — Commit spec and plan**
+- [x] **Task 1 — Commit spec and plan**
   - Acceptance: spec approved; plan and todo agree; docs only.
   - Verify: `pnpm exec oxfmt --check SPEC.md tasks/plan.md tasks/todo.md`;
     `git diff --check`; CI green.
   - Files: `SPEC.md`, `tasks/plan.md`, `tasks/todo.md`.
   - Depends: none.
 
-- [ ] **Task 2 — Add placeholder content scaffold**
+- [x] **Task 2 — Add placeholder content scaffold**
   - Acceptance: schema-valid JSON; obvious placeholders; no Alex Mercer
     identity; placeholder bio; README lists every placeholder; placeholder PDF.
   - Verify: JSON parse, `file public/resume.pdf`, format check, grep for
@@ -37,7 +40,7 @@ merges, then retargets to `main`.
   - Depends: Task 1.
   - Note: replaced by the post-stack content pass.
 
-- [ ] **Task 3 — Content pipeline and semantic render**
+- [x] **Task 3 — Content pipeline and semantic render**
   - Acceptance: loader, validator, `getStaticProps`, Markdown conversion; all
     sections render from content; invalid content fails build; no `marked` in
     client chunks.
@@ -47,7 +50,7 @@ merges, then retargets to `main`.
     `src/pages/index.tsx`.
   - Depends: Task 2.
 
-- [ ] **Task 4 — Design tokens and page foundation**
+- [x] **Task 4 — Design tokens and page foundation**
   - Acceptance: exact tokens, system fonts, container, numbered sections,
     footer; no 360px overflow.
   - Verify: build, 390/1440 browser check, computed tokens, heading order.
@@ -55,7 +58,7 @@ merges, then retargets to `main`.
     `src/components/SiteFooter.tsx`, `src/pages/index.tsx`.
   - Depends: Task 3.
 
-- [ ] **Task 5 — Site header and skip link**
+- [x] **Task 5 — Site header and skip link**
   - Acceptance: 52px sticky header, monogram, skip link, `#main` target,
     correct focus order.
   - Verify: build, keyboard pass, anchor offset, 360px check.
@@ -63,7 +66,7 @@ merges, then retargets to `main`.
     `src/styles/globals.css`, `src/pages/index.tsx`.
   - Depends: Task 4.
 
-- [ ] **Task 6 — Theme toggle and no-flash bootstrap**
+- [x] **Task 6 — Theme toggle and no-flash bootstrap**
   - Acceptance: persisted theme, system fallback, no flash, correct
     `aria-pressed`/label, icons.
   - Verify: build, reload tests, keyboard activation, state inspection.
@@ -72,7 +75,7 @@ merges, then retargets to `main`.
     `src/components/SiteHeader.tsx`, `src/styles/globals.css`.
   - Depends: Task 5.
 
-- [ ] **Task 7 — Hero, profile, networking**
+- [x] **Task 7 — Hero, profile, networking**
   - Acceptance: reference type/layout, Markdown bio, facts, résumé link,
     two-column to one-column at 560px, hover/focus states.
   - Verify: build, screenshots at 390/820/1440, keyboard, résumé download.
@@ -81,7 +84,7 @@ merges, then retargets to `main`.
     `src/pages/index.tsx`.
   - Depends: Task 6.
 
-- [ ] **Task 8 — Experience and tech stack**
+- [x] **Task 8 — Experience and tech stack**
   - Acceptance: jobs and stack from content, dates as `start — end`, 132px
     column collapse, `h3` per job.
   - Verify: build, screenshots at 390/820/1440, overflow check.
@@ -89,7 +92,7 @@ merges, then retargets to `main`.
     `src/components/Work.module.css`, `src/pages/index.tsx`.
   - Depends: Task 7.
 
-- [ ] **Task 9 — Reveal motion and responsive polish**
+- [x] **Task 9 — Reveal motion and responsive polish**
   - Acceptance: progressive reveal, reduced-motion opt-out, 1.8s failsafe,
     no horizontal scroll across the matrix, visible focus.
   - Verify: build, full viewport matrix, no-JS reload, reduced-motion reload,
@@ -99,7 +102,7 @@ merges, then retargets to `main`.
     `src/pages/index.tsx`.
   - Depends: Task 8.
 
-- [ ] **Task 10 — SEO metadata and final QA**
+- [x] **Task 10 — SEO metadata and final QA**
   - Acceptance: metadata from `meta`, OG/Twitter tags, favicon, robots, social
     image; all spec success criteria pass; Lighthouse targets met.
   - Verify: `pnpm check`, `pnpm build`, `out/` contents, QA matrix, Lighthouse.

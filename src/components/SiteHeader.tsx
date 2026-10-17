@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToggle";
 import type { Brand } from "@/lib/content";
 
 interface SiteHeaderProps {
@@ -11,6 +12,7 @@ export function SiteHeader({ brand }: SiteHeaderProps) {
         <a className="brand" href="#main" aria-label={brand.ariaLabel}>
           {brand.initials}
         </a>
+        <ThemeToggle />
       </div>
     </header>
   );

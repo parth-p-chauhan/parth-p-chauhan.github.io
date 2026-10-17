@@ -1,9 +1,15 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Head, Html, Main, NextScript } from "next/document";
+
+const themeScript =
+  '(function(){var root=document.documentElement;root.classList.add("js");try{var stored=localStorage.getItem("portfolio-theme");if(stored==="light"||stored==="dark"){root.setAttribute("data-theme",stored);}}catch(e){}})();';
 
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <meta name="color-scheme" content="light dark" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </Head>
       <body>
         <Main />
         <NextScript />

@@ -1,0 +1,97 @@
+.jobs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.job {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.jobDate {
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.jobCompany {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+}
+
+.jobRole {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.jobDesc {
+  max-width: 56ch;
+  margin-top: 9px;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.stackList {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.stackRow {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 8px 24px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.stackRow dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stackRow dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+
+@media (max-width: 560px) {
+  .job,
+  .stackRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .job {
+    gap: 5px;
+  }
+
+  .jobRole {
+    margin-top: 0;
+  }
+
+  .jobDesc {
+    margin-top: 7px;
+  }
+
+  .stackRow {
+    padding: 15px 0;
+  }
+}

@@ -1,6 +1,7 @@
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 
+import { Experience } from "@/components/Experience";
 import { Hero } from "@/components/Hero";
 import { Networking } from "@/components/Networking";
 import { Profile } from "@/components/Profile";
@@ -8,6 +9,7 @@ import { Section } from "@/components/Section";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SkipLink } from "@/components/SkipLink";
+import { TechStack } from "@/components/TechStack";
 import { loadContent, type LoadedContent } from "@/lib/content";
 
 interface HomeProps extends LoadedContent {
@@ -47,31 +49,11 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
         </Section>
 
         <Section id="experience" number={3} title={content.labels.experience}>
-          <ol className="jobs">
-            {content.experience.map((job) => (
-              <li className="job" key={job.id}>
-                <span className="jobDate">
-                  {job.start} — {job.end}
-                </span>
-                <div>
-                  <h3 className="jobCompany">{job.company}</h3>
-                  <p className="jobRole">{job.role}</p>
-                  <p className="jobDesc">{job.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <Experience experience={content.experience} />
         </Section>
 
         <Section id="stack" number={4} title={content.labels.stack}>
-          <dl className="stackList">
-            {content.stack.map((group) => (
-              <div className="stackRow" key={group.id}>
-                <dt>{group.label}</dt>
-                <dd>{group.items.join(", ")}</dd>
-              </div>
-            ))}
-          </dl>
+          <TechStack stack={content.stack} />
         </Section>
       </main>
 

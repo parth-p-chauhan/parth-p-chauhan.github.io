@@ -8,10 +8,6 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="color-scheme" content="light dark" />
-        <meta
-          name="google-site-verification"
-          content="lJ5DDwcdzS5tU-lz1NIXF2jhX-LlLY6_lIJG60mO25Y"
-        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </Head>
       <body>

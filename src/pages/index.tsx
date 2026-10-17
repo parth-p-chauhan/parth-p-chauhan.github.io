@@ -1,6 +1,8 @@
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 
+import { Section } from "@/components/Section";
+import { SiteFooter } from "@/components/SiteFooter";
 import { loadContent, type LoadedContent } from "@/lib/content";
 
 interface HomeProps extends LoadedContent {
@@ -26,24 +28,34 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
       </Head>
 
       <main id="main">
-        <section aria-labelledby="hero-title">
-          <p>{content.hero.kicker}</p>
-          <h1 id="hero-title">{content.hero.name}</h1>
-          <p>{content.hero.intro}</p>
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="container">
+            <p className="kicker">{content.hero.kicker}</p>
+            <h1 id="hero-title">{content.hero.name}</h1>
+            <p className="intro">{content.hero.intro}</p>
+          </div>
         </section>
 
-        <section aria-labelledby="profile-title">
-          <h2 id="profile-title">{content.labels.profile}</h2>
-          <div dangerouslySetInnerHTML={{ __html: profileHtml }} />
-          <dl>
+        <Section id="profile" number={1} title={content.labels.profile}>
+          <div
+            className="bio"
+            dangerouslySetInnerHTML={{ __html: profileHtml }}
+          />
+          <dl className="facts">
             {content.profile.facts.map((fact) => (
-              <div key={fact.label}>
+              <div className="fact" key={fact.label}>
                 <dt>{fact.label}</dt>
                 <dd>
                   {"value" in fact ? (
-                    fact.value
+                    <>
+                      {fact.highlight ? (
+                        <span className="dot" aria-hidden="true" />
+                      ) : null}
+                      {fact.value}
+                    </>
                   ) : (
                     <a
+                      className="textLink"
                       href={fact.link.href}
                       download={fact.link.download || undefined}
                     >
@@ -54,54 +66,48 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
               </div>
             ))}
           </dl>
-        </section>
+        </Section>
 
-        <section aria-labelledby="networking-title">
-          <h2 id="networking-title">{content.labels.networking}</h2>
-          <ul>
+        <Section id="networking" number={2} title={content.labels.networking}>
+          <ul className="links">
             {content.networking.map((link) => (
               <li key={link.id}>
                 <a href={link.href}>{link.label}</a>
               </li>
             ))}
           </ul>
-        </section>
+        </Section>
 
-        <section aria-labelledby="experience-title">
-          <h2 id="experience-title">{content.labels.experience}</h2>
-          <ol>
+        <Section id="experience" number={3} title={content.labels.experience}>
+          <ol className="jobs">
             {content.experience.map((job) => (
-              <li key={job.id}>
-                <span>
+              <li className="job" key={job.id}>
+                <span className="jobDate">
                   {job.start} — {job.end}
                 </span>
-                <h3>{job.company}</h3>
-                <p>{job.role}</p>
-                <p>{job.description}</p>
+                <div>
+                  <h3 className="jobCompany">{job.company}</h3>
+                  <p className="jobRole">{job.role}</p>
+                  <p className="jobDesc">{job.description}</p>
+                </div>
               </li>
             ))}
           </ol>
-        </section>
+        </Section>
 
-        <section aria-labelledby="stack-title">
-          <h2 id="stack-title">{content.labels.stack}</h2>
-          <dl>
+        <Section id="stack" number={4} title={content.labels.stack}>
+          <dl className="stackList">
             {content.stack.map((group) => (
-              <div key={group.id}>
+              <div className="stackRow" key={group.id}>
                 <dt>{group.label}</dt>
                 <dd>{group.items.join(", ")}</dd>
               </div>
             ))}
           </dl>
-        </section>
+        </Section>
       </main>
 
-      <footer>
-        <span>
-          © {year} {content.footer.copyrightHolder}
-        </span>
-        <span>{content.footer.note}</span>
-      </footer>
+      <SiteFooter footer={content.footer} year={year} />
     </>
   );
 }

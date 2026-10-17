@@ -1,0 +1,57 @@
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.toggle:hover {
+  color: var(--fg);
+  background: var(--fg-soft);
+  border-color: var(--border);
+}
+
+.toggle:active {
+  transform: translateY(1px);
+}
+
+.toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.iconSun {
+  display: none;
+}
+
+.iconMoon {
+  display: block;
+}
+
+:global(:root[data-theme="dark"]) .iconSun {
+  display: block;
+}
+
+:global(:root[data-theme="dark"]) .iconMoon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .iconSun {
+    display: block;
+  }
+
+  :global(:root:not([data-theme])) .iconMoon {
+    display: none;
+  }
+}

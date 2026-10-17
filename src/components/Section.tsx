@@ -5,13 +5,25 @@ interface SectionProps {
   number: number;
   title: string;
   children: ReactNode;
+  reveal?: boolean;
 }
 
-export function Section({ id, number, title, children }: SectionProps) {
+export function Section({
+  id,
+  number,
+  title,
+  children,
+  reveal = true,
+}: SectionProps) {
   const titleId = `${id}-title`;
 
   return (
-    <section className="section" id={id} aria-labelledby={titleId} data-reveal>
+    <section
+      className="section"
+      id={id}
+      aria-labelledby={titleId}
+      data-reveal={reveal ? "" : undefined}
+    >
       <div className="container">
         <div className="sectionHead">
           <span className="sectionNum" aria-hidden="true">

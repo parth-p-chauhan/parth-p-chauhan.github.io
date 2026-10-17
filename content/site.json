@@ -3,7 +3,8 @@
     "title": "Parth Chauhan — Frontend Engineer",
     "description": "Parth Chauhan is a frontend engineer building clear, accessible interfaces for the web.",
     "canonicalUrl": "https://parth-p-chauhan.github.io/",
-    "locale": "en"
+    "locale": "en",
+    "ogImage": "/og.png"
   },
   "brand": {
     "initials": "PC",

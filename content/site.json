@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Parth Chauhan — Frontend Engineer",
+    "description": "Parth Chauhan is a frontend engineer building clear, accessible interfaces for the web.",
+    "canonicalUrl": "https://parth-p-chauhan.github.io/",
+    "locale": "en",
+    "ogImage": "/og.png"
+  },
+  "brand": {
+    "initials": "PC",
+    "ariaLabel": "Parth Chauhan — back to top"
+  },
+  "hero": {
+    "kicker": "Frontend Engineer",
+    "name": "Parth Chauhan",
+    "intro": "I build clear, fast interfaces for the web. This intro is a placeholder and will be replaced with a short personal statement."
+  },
+  "labels": {
+    "profile": "Profile",
+    "networking": "Networking",
+    "experience": "Work Experience",
+    "stack": "Tech Stack"
+  },
+  "profile": {
+    "facts": [
+      {
+        "label": "Location",
+        "value": "City, Country (TZ)"
+      },
+      {
+        "label": "Availability",
+        "value": "Open to opportunities",
+        "highlight": true
+      },
+      {
+        "label": "Résumé",
+        "link": {
+          "label": "Download PDF",
+          "href": "/resume.pdf",
+          "download": true
+        }
+      }
+    ]
+  },
+  "networking": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "href": "https://github.com/parth-p-chauhan",
+      "external": true
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/",
+      "external": true
+    },
+    {
+      "id": "x",
+      "label": "X / Twitter",
+      "href": "https://x.com/",
+      "external": true
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "href": "mailto:hello@example.com",
+      "external": false
+    }
+  ],
+  "experience": [
+    {
+      "id": "company-one",
+      "company": "Company name",
+      "role": "Role title",
+      "start": "2022",
+      "end": "Present",
+      "description": "Placeholder description — replace with one or two sentences about your scope and impact."
+    },
+    {
+      "id": "company-two",
+      "company": "Company name",
+      "role": "Role title",
+      "start": "2019",
+      "end": "2022",
+      "description": "Placeholder description — replace with one or two sentences about your scope and impact."
+    },
+    {
+      "id": "company-three",
+      "company": "Company name",
+      "role": "Role title",
+      "start": "2016",
+      "end": "2019",
+      "description": "Placeholder description — replace with one or two sentences about your scope and impact."
+    }
+  ],
+  "stack": [
+    {
+      "id": "languages",
+      "label": "Languages",
+      "items": ["TypeScript", "JavaScript", "HTML", "CSS"]
+    },
+    {
+      "id": "frameworks",
+      "label": "Frameworks",
+      "items": ["React", "Next.js"]
+    },
+    {
+      "id": "tools",
+      "label": "Tools",
+      "items": ["Git", "Figma"]
+    }
+  ],
+  "footer": {
+    "copyrightHolder": "Parth Chauhan",
+    "note": "Built with Next.js"
+  }
+}

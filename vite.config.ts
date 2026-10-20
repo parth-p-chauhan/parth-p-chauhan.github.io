@@ -37,4 +37,9 @@ export default defineConfig({
       },
     ],
   },
+  staged: {
+    "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}": "vp lint --fix",
+    "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json,jsonc,css,md,yml,yaml}":
+      "vp fmt --write",
+  },
 });

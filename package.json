@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prepare": "lefthook install",
+    "prepare": "vp config --no-agent",
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",
     "format": "vp fmt --write .",
@@ -24,7 +24,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "lefthook": "2.2.2",
     "typescript": "^5",
     "vite-plus": "catalog:"
   },

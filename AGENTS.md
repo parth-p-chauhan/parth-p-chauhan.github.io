@@ -10,7 +10,7 @@ GitHub Pages on every push to `main`.
   it (`packageManager`), Node 22 in CI
 - oxlint + oxfmt, not ESLint/Prettier
 - `marked` renders `content/profile.md` at build time
-- lefthook pre-commit hook
+- Vite+ Git hooks (`.vite-hooks/pre-commit` + `vp staged`)
 
 ## Commands
 
@@ -88,8 +88,11 @@ oxlint sets `correctness` to error and `suspicious` to warning, with
 `typescript`, `unicorn`, `oxc`, `react`, `nextjs`, and `jsx-a11y` plugins.
 `.agents/**` and `skills-lock.json` are excluded in `fmt.ignorePatterns`.
 
-The pre-commit hook runs `vp lint --fix` and `vp fmt --write` on staged files
-and re-stages them, so a commit may modify your files.
+The pre-commit hook runs `vp staged`, which applies the `staged` block from
+`vite.config.ts` (`vp lint --fix` and `vp fmt --write`) to staged files and
+re-stages them, so a commit may modify your files. `vp config --no-agent` in
+the `prepare` script installs the hook dispatcher; `vp hooks disable` turns
+hooks off for one clone.
 
 ## Gotchas
 

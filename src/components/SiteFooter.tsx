@@ -10,7 +10,11 @@ export function SiteFooter({ footer, year }: SiteFooterProps) {
     <footer className="pagefoot">
       <div className="container footInner">
         <span>
-          © {year} {footer.copyrightHolder}
+          ©{" "}
+          <span data-year suppressHydrationWarning>
+            {year}
+          </span>{" "}
+          {footer.copyrightHolder}
         </span>
         <span>{footer.note}</span>
       </div>

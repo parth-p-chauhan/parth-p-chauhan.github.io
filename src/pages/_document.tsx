@@ -3,6 +3,9 @@ import { Head, Html, Main, NextScript } from "next/document";
 const themeScript =
   '(function(){var root=document.documentElement;root.classList.add("js");try{var stored=localStorage.getItem("portfolio-theme");if(stored==="light"||stored==="dark"){root.setAttribute("data-theme",stored);}}catch(e){}})();';
 
+const yearScript =
+  '(function(){var year=String(new Date().getFullYear());document.querySelectorAll("[data-year]").forEach(function(el){el.textContent=year;});})();';
+
 export default function Document() {
   return (
     <Html lang="en">
@@ -16,6 +19,7 @@ export default function Document() {
       </Head>
       <body>
         <Main />
+        <script dangerouslySetInnerHTML={{ __html: yearScript }} />
         <NextScript />
       </body>
     </Html>

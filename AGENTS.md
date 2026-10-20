@@ -1,77 +1,110 @@
 # parth-p-chauhan.github.io
 
-Personal site, statically exported and deployed to GitHub Pages on every push
-to `main`.
+One-page portfolio for Parth Chauhan, statically exported and deployed to
+GitHub Pages on every push to `main`.
 
 ## Stack
 
 - Next.js 16.4.2 **Pages Router** (`src/pages`), React 19.3, TypeScript strict
-- pnpm 12.8.1 (pinned in `package.json`); CI uses Node 22
+- Vite+ (`vp`) for lint, format, checks, and task running; pnpm 12.8.1 behind
+  it (`packageManager`), Node 22 in CI
 - oxlint + oxfmt, not ESLint/Prettier
+- `marked` renders `content/profile.md` at build time
 - lefthook pre-commit hook
 
 ## Commands
 
-- `pnpm dev` — local dev server
-- `pnpm check` — lint + format check + typecheck; run before declaring work done
-- `pnpm lint` / `pnpm lint:fix` — oxlint
-- `pnpm format` / `pnpm format:check` — oxfmt over the whole repo
-- `pnpm typecheck` — `tsc --noEmit`
-- `pnpm build` — static export into `out/`
+| Command                                 | Purpose                                |
+| --------------------------------------- | -------------------------------------- |
+| `vp install`                            | Install dependencies                   |
+| `vp run dev`                            | Next.js dev server                     |
+| `vp check`                              | Format check + lint + type-aware check |
+| `vp run typecheck`                      | `tsc --noEmit`                         |
+| `vp run build`                          | Static export into `out/`              |
+| `vp lint` / `vp lint --fix`             | oxlint                                 |
+| `vp fmt --write .` / `vp fmt --check .` | oxfmt across the repo                  |
 
-There is no test framework. `pnpm check` and `pnpm build` are the verification
-steps; CI runs both on every PR and push to `main`.
+This is a Next.js app, so use `vp run dev` and `vp run build`; bare `vp dev`
+and `vp build` run Vite, not Next.js.
+
+There is no test framework. Before declaring work done, run `vp check`,
+`vp run typecheck`, and `vp run build`. CI runs the check and build steps on
+every PR and push to `main`.
+
+## Content pipeline
+
+All page copy lives in `content/`; components do not hardcode prose.
+
+- `content/site.json` — structured content; array order is display order.
+- `content/profile.md` — long-form bio, converted to HTML with `marked`.
+- `src/lib/content.ts` — validates content in `getStaticProps` through
+  `loadContent()`. Invalid content fails `vp run build` with a
+  `content/site.json: <field>` error.
+- `public/resume.pdf`, `public/og.png` — assets referenced from content.
+
+Validation rules:
+
+- `profile.facts[]` entries need exactly one of `value` or `link`.
+- `networking`, `experience`, and `stack` entries need unique IDs and
+  non-empty arrays.
+- Hrefs must start with `https://`, `http://`, `mailto:`, or a root-relative
+  `/` (not `//`).
+- Local asset hrefs must exist under `public/`.
+- `content/profile.md` must not be empty.
+
+`content/README.md` tracks placeholder copy that still needs replacing.
+Content is read at build time, so production changes require a rebuild.
 
 ## Layout
 
-- `src/pages/_app.tsx` — global CSS import and app shell
-- `src/pages/_document.tsx` — HTML document
-- `src/pages/index.tsx` — home page
-- `src/styles/globals.css` — global styles only
+- `src/pages/index.tsx` — the single page; loads content in `getStaticProps`
+- `src/pages/_app.tsx` — global CSS import and app shell (`AppProps`)
+- `src/pages/_document.tsx` — HTML document and theme bootstrap script
+- `src/components/` — section components plus CSS Modules (`*.module.css`)
+- `src/hooks/` — `useReveal` scroll reveal and `useTheme` theme toggle
+- `src/lib/content.ts` — content types, validation, and loader
+- `src/styles/globals.css` — design tokens and global styles
+- `content/` — page copy and structured data
 - `@/*` maps to `src/*` (use `@/styles/globals.css`, not relative hops)
 
-Pages are default-exported functions typed with `AppProps` where applicable.
-Metadata goes through `next/head`; fonts through `next/font/google`.
+## Static export
+
+`next.config.ts` sets `output: "export"`, `images.unoptimized`, and
+`trailingSlash`; deploy uploads `out/`. Keep the site buildable as plain static
+files:
+
+- No API routes, middleware, ISR, or `getServerSideProps`.
+- Fetch data at build time with `getStaticProps` / `getStaticPaths`.
+- Do not re-enable image optimization without a loader.
+- `vp run build` must pass locally before pushing.
 
 ## Formatting and lint
 
-oxfmt is the source of truth: double quotes, semicolons, 2-space indent,
-80-column width, trailing commas, and sorted imports. Do not hand-format
-against it. oxlint enables `correctness` as error and `suspicious` as warning,
-with the `typescript`, `unicorn`, `oxc`, `react`, `nextjs`, and `jsx-a11y`
-plugins.
+Config lives in the `fmt` and `lint` blocks of `vite.config.ts`. oxfmt is the
+source of truth: double quotes, semicolons, 2-space indent, 80 columns,
+trailing commas, sorted imports. Do not hand-format against it.
 
-The pre-commit hook runs `oxlint --fix` and `oxfmt --write` on staged files and
-re-stages them, so a commit may modify your files.
+oxlint sets `correctness` to error and `suspicious` to warning, with
+`typescript`, `unicorn`, `oxc`, `react`, `nextjs`, and `jsx-a11y` plugins.
+`.agents/**` and `skills-lock.json` are excluded in `fmt.ignorePatterns`.
 
-## Static-export constraints (easy to break)
-
-`next.config.ts` sets `output: "export"`, `images.unoptimized`, and
-`trailingSlash`. The site is plain static files in `out/`:
-
-- No API routes, middleware, ISR, or `getServerSideProps`.
-- Data fetching must happen at build time via `getStaticProps` /
-  `getStaticPaths`.
-- `next/image` only works because optimization is globally disabled; do not
-  turn it back on without a loader.
-- `pnpm build` must succeed locally before pushing, because deploy uploads
-  `out/` and fails otherwise.
+The pre-commit hook runs `vp lint --fix` and `vp fmt --write` on staged files
+and re-stages them, so a commit may modify your files.
 
 ## Gotchas
 
-- Do not create `src/app/` or React Server Components. This is the Pages
-  Router on purpose.
+- Do not create `src/app/` or React Server Components; this is the Pages Router
+  on purpose.
 - Do not edit `next-env.d.ts` or `*.tsbuildinfo`; both are generated and
   gitignored.
-- The `nextjs-agent-rules` block at the bottom of this file is rewritten in
-  place by `next dev`. Leave it where it is and include it in commits.
-- Use pnpm only. CI installs with `--frozen-lockfile`, so commit
-  `pnpm-lock.yaml` with any dependency change.
-- `format:check` scans the entire repo, including Markdown under `.agents/`;
-  vendored skill files must be formatted or excluded before `pnpm check`
-  passes.
-- Pushing to `main` deploys directly. There is no staging environment or
-  release step.
+- Commit `pnpm-lock.yaml` with dependency changes; CI installs with
+  `--frozen-lockfile`.
+- Deployment is direct: pushing to `main` publishes the site. There is no
+  staging environment or release step.
+- The `nextjs-agent-rules` block below is generated by `next dev`. Leave its
+  markers in place and include it in commits; Next rewrites it in place.
+- `vp toolchain` lists tool versions; `vp env doctor` diagnoses setup. Vite+
+  docs live in `node_modules/vite-plus/docs`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

@@ -50,7 +50,7 @@
 
 .stackRow {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
+  grid-template-columns: 152px minmax(0, 1fr);
   gap: 8px 24px;
   align-items: baseline;
   padding: 13px 0;

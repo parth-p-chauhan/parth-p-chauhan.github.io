@@ -25,7 +25,7 @@
     "facts": [
       {
         "label": "Location",
-        "value": "City, Country (TZ)"
+        "value": "Bengaluru, IN"
       },
       {
         "label": "Availability",
@@ -52,19 +52,19 @@
     {
       "id": "linkedin",
       "label": "LinkedIn",
-      "href": "https://www.linkedin.com/",
+      "href": "https://www.linkedin.com/in/parth-p-chauhan",
       "external": true
     },
     {
       "id": "x",
       "label": "X / Twitter",
-      "href": "https://x.com/",
+      "href": "https://x.com/parth_p_chauhan",
       "external": true
     },
     {
       "id": "email",
       "label": "Email",
-      "href": "mailto:hello@example.com",
+      "href": "mailto:00chauhanparth@gmail.com",
       "external": false
     }
   ],
@@ -96,19 +96,32 @@
   ],
   "stack": [
     {
-      "id": "languages",
-      "label": "Languages",
-      "items": ["TypeScript", "JavaScript", "HTML", "CSS"]
+      "id": "web-technologies",
+      "label": "Web Technologies",
+      "items": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "GraphQL",
+        "HTML",
+        "CSS"
+      ]
     },
     {
-      "id": "frameworks",
-      "label": "Frameworks",
-      "items": ["React", "Next.js"]
+      "id": "backend-technologies",
+      "label": "Backend Technologies",
+      "items": ["Node.js", "Express.js", "Nest.js", "PostgreSQL"]
+    },
+    {
+      "id": "testing-tools",
+      "label": "Testing Tools",
+      "items": ["Jest / Vitest", "React Testing Library", "Playwright"]
     },
     {
       "id": "tools",
       "label": "Tools",
-      "items": ["Git", "Figma"]
+      "items": ["Git/GitHub", "Storybook", "Vite", "Docker", "Kubernetes"]
     }
   ],
   "footer": {

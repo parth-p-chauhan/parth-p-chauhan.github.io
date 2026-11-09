@@ -9,7 +9,6 @@ GitHub Pages on every push to `main`.
 - Vite+ (`vp`) for lint, format, checks, and task running; pnpm 12.8.1 behind
   it (`packageManager`), Node 22 in CI
 - oxlint + oxfmt, not ESLint/Prettier
-- `marked` renders `content/profile.md` at build time
 - Vite+ Git hooks (`.vite-hooks/pre-commit` + `vp staged`)
 
 ## Commands
@@ -35,8 +34,8 @@ every PR and push to `main`.
 
 All page copy lives in `content/`; components do not hardcode prose.
 
-- `content/site.json` — structured content; array order is display order.
-- `content/profile.md` — long-form bio, converted to HTML with `marked`.
+- `content/site.json` — structured content, including the `profile.bio` paragraphs;
+  array order is display order.
 - `src/lib/content.ts` — validates content in `getStaticProps` through
   `loadContent()`. Invalid content fails `vp run build` with a
   `content/site.json: <field>` error.
@@ -50,7 +49,7 @@ Validation rules:
 - Hrefs must start with `https://`, `http://`, `mailto:`, or a root-relative
   `/` (not `//`).
 - Local asset hrefs must exist under `public/`.
-- `content/profile.md` must not be empty.
+- `profile.bio` must be a non-empty array of non-empty strings.
 
 `content/README.md` tracks placeholder copy that still needs replacing.
 Content is read at build time, so production changes require a rebuild.

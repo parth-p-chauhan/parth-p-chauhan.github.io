@@ -5,8 +5,8 @@ built. Replace every item below before the site is considered finished.
 
 ## Files
 
-- `site.json` — structured page content and section labels
-- `profile.md` — the long-form bio rendered in the Profile section
+- `site.json` — structured page content, section labels, and the `profile.bio`
+  paragraphs
 - `../public/resume.pdf` — résumé
 
 ## Placeholders to replace
@@ -15,6 +15,7 @@ built. Replace every item below before the site is considered finished.
 
 - `meta.description` — generic description
 - `hero.intro` — placeholder intro sentence
+- `profile.bio` — placeholder bio paragraphs
 - `profile.facts[0].value` — `City, Country (TZ)`
 - `profile.facts[1].value` — generic availability wording
 - `networking[]` — LinkedIn, X, and email are placeholders; GitHub is real
@@ -23,7 +24,6 @@ built. Replace every item below before the site is considered finished.
 
 ### Other files
 
-- `profile.md` — placeholder bio
 - `../public/resume.pdf` — placeholder résumé
 
 ## Rules

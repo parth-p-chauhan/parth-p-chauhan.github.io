@@ -47,8 +47,6 @@ viewport, while changing any copy is a content-file edit only.
 - Next.js 16.4.2, **Pages Router** (`src/pages`), React 19.3, TypeScript strict
 - pnpm 12.8.1; Node 22 in CI
 - Global CSS custom properties for tokens + CSS Modules for components
-- `marked` for build-time Markdown → HTML conversion (**new dependency, needs
-  approval**)
 - Static export (`output: "export"`); no runtime data fetching
 - oxlint + oxfmt; no test framework currently
 
@@ -60,7 +58,6 @@ code.
 ```
 content/
   site.json        # all structured page content
-  profile.md       # long-form bio, Markdown
 public/
   resume.pdf       # downloadable résumé
   og.png           # optional social preview image (1200×630)
@@ -96,6 +93,10 @@ display order. The page owns section order; JSON cannot reorder sections.
     "stack": "Tech Stack"
   },
   "profile": {
+    "bio": [
+      "A short opening paragraph.",
+      "A second paragraph with the longer story."
+    ],
     "facts": [
       { "label": "Location", "value": "City, Country (TZ)" },
       {
@@ -147,8 +148,8 @@ display order. The page owns section order; JSON cannot reorder sections.
 
 Rules:
 
-- `profile` always renders the bio from `content/profile.md`; the path is fixed,
-  not configurable.
+- `profile.bio` is an array of plain-text paragraphs rendered in order; it holds
+  the long-form bio.
 - `labels` supplies every section title. Renaming a section is a content edit.
 - `profile.facts[]` is a discriminated union: each entry has either `value`
   (string, optional `highlight` for the availability dot) or `link`
@@ -164,26 +165,26 @@ Rules:
 - No page copy or section title may live in a component. Fixed control strings
   (skip link, theme-toggle label) are the only exception.
 
-### Markdown
+### Bio
 
-`content/profile.md` supports paragraphs, emphasis, links, and inline code.
-Raw HTML is allowed only because the file is repo-owned and trusted; user input
-is never rendered this way. The bio is converted to HTML in `getStaticProps` and
-passed to the page, so `marked` never reaches the client bundle.
+`profile.bio` is an array of plain-text paragraphs. Each entry renders as its own
+`<p>` and is escaped by React, so Markdown and raw HTML are not supported. The bio
+is content-owned, so it lives in `content/site.json` with the rest of the page
+copy.
 
 ### Loading and validation
 
 - `src/lib/content.ts` exports `SiteContent` types, `loadContent()`, and
   `assertSiteContent()`.
-- `loadContent()` reads both files with `fs` inside `getStaticProps`; it is
-  never imported into client code.
+- `loadContent()` reads `content/site.json` with `fs` inside `getStaticProps`; it
+  is never imported into client code.
 - Validation fails the build with a message that includes the file and JSON path,
   e.g. `content/site.json: profile.facts[2] must have "value" or "link"`.
 - Validation also checks non-empty arrays, absolute `http(s)`/`mailto:`/root-
   relative hrefs, unique `id` values, and presence of referenced files
   (`public/resume.pdf`).
-- `getStaticProps` returns `{ content, profileHtml }`. Changing content requires
-  a rebuild; that is acceptable for this site.
+- `getStaticProps` returns `{ content, year }`. Changing content requires a
+  rebuild; that is acceptable for this site.
 
 ### Content rollout
 
@@ -373,7 +374,7 @@ separate, approved change.
 
 **Ask first**
 
-- Adding any dependency (`marked` is the only proposed one)
+- Adding any dependency
 - Changing design tokens, layout geometry, or section order
 - Adding routes, analytics, a CMS, or a contact backend
 - Changing CI, deployment, or the canonical domain
@@ -394,8 +395,7 @@ separate, approved change.
 
 - [ ] Page matches the reference's typography, spacing, colors, and layout at all
       target viewports.
-- [ ] All page copy, including section titles, comes from `content/site.json` or
-      `content/profile.md`.
+- [ ] All page copy, including section titles, comes from `content/site.json`.
 - [ ] Editing content and rebuilding changes the site with no component edits.
 - [ ] Invalid content fails `pnpm build` with a file-and-field error.
 - [ ] Theme toggle persists, respects system preference, and does not flash.
@@ -413,7 +413,6 @@ separate, approved change.
 
 No blocking questions for Phase 1. The following are confirmed as defaults:
 
-- `marked` is used for `profile.md`.
 - Section labels stay as specified.
 - Theme follows the OS by default.
 - Canonical URL is `https://parth-p-chauhan.github.io/`.

@@ -11,7 +11,7 @@ export function Networking({ links }: NetworkingProps) {
     <ul className={styles.links}>
       {links.map((link) => (
         <li key={link.id}>
-          <a href={link.href}>
+          <a href={link.href} target="_blank" rel="noopener noreferrer">
             {link.label}{" "}
             <span className={styles.arrow} aria-hidden="true">
               ↗

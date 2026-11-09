@@ -7,7 +7,7 @@ built. Replace every item below before the site is considered finished.
 
 - `site.json` — structured page content and section labels
 - `profile.md` — the long-form bio rendered in the Profile section
-- `../public/resume.pdf` — downloadable résumé
+- `../public/resume.pdf` — résumé
 
 ## Placeholders to replace
 

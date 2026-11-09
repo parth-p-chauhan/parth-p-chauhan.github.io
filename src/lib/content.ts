@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { marked, Renderer } from "marked";
-
 export interface SiteMeta {
   title: string;
   description: string;
@@ -46,6 +44,7 @@ export interface FactWithLink {
 export type Fact = FactWithValue | FactWithLink;
 
 export interface Profile {
+  bio: string[];
   facts: Fact[];
 }
 
@@ -88,27 +87,9 @@ export interface SiteContent {
   footer: SiteFooter;
 }
 
-export interface LoadedContent {
-  content: SiteContent;
-  profileHtml: string;
-}
-
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const SITE_FILE = path.join(CONTENT_DIR, "site.json");
-const PROFILE_FILE = path.join(CONTENT_DIR, "profile.md");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
-
-marked.use({
-  renderer: {
-    link(token) {
-      const html = Renderer.prototype.link.call(this, token);
-      return html.replace(
-        /^<a /,
-        '<a target="_blank" rel="noopener noreferrer" ',
-      );
-    },
-  },
-});
 
 function fail(field: string, message: string): never {
   throw new Error(`content/site.json: ${field} ${message}`);
@@ -203,6 +184,15 @@ function validateLabels(value: unknown): void {
   expectNonEmptyString(labels.networking, "labels.networking");
   expectNonEmptyString(labels.experience, "labels.experience");
   expectNonEmptyString(labels.stack, "labels.stack");
+}
+
+function validateBio(value: unknown): void {
+  const bio = expectArray(value, "profile.bio");
+  if (bio.length === 0) fail("profile.bio", "must not be empty");
+
+  bio.forEach((paragraph, index) => {
+    expectNonEmptyString(paragraph, `profile.bio[${index}]`);
+  });
 }
 
 function validateFacts(value: unknown): void {
@@ -305,6 +295,7 @@ export function assertSiteContent(
   validateLabels(root.labels);
 
   const profile = expectRecord(root.profile, "profile");
+  validateBio(profile.bio);
   validateFacts(profile.facts);
 
   validateNetworking(root.networking);
@@ -337,7 +328,7 @@ function assertLocalAssets(content: SiteContent): void {
   }
 }
 
-export function loadContent(): LoadedContent {
+export function loadContent(): SiteContent {
   let parsed: unknown;
   try {
     parsed = JSON.parse(fs.readFileSync(SITE_FILE, "utf8"));
@@ -353,11 +344,5 @@ export function loadContent(): LoadedContent {
   assertSiteContent(parsed);
   assertLocalAssets(parsed);
 
-  const markdown = fs.readFileSync(PROFILE_FILE, "utf8");
-  if (markdown.trim() === "") {
-    throw new Error("content/profile.md: bio must not be empty");
-  }
-  const profileHtml = marked.parse(markdown, { async: false });
-
-  return { content: parsed, profileHtml };
+  return parsed;
 }

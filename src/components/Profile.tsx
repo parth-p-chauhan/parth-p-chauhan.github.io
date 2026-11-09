@@ -4,16 +4,16 @@ import styles from "./About.module.css";
 
 interface ProfileProps {
   profile: ProfileContent;
-  profileHtml: string;
 }
 
-export function Profile({ profile, profileHtml }: ProfileProps) {
+export function Profile({ profile }: ProfileProps) {
   return (
     <>
-      <div
-        className={styles.bio}
-        dangerouslySetInnerHTML={{ __html: profileHtml }}
-      />
+      <div className={styles.bio}>
+        {profile.bio.map((paragraph, index) => (
+          <p key={`${index}-${paragraph}`}>{paragraph}</p>
+        ))}
+      </div>
       <dl className={styles.facts}>
         {profile.facts.map((fact) => (
           <div className={styles.fact} key={fact.label}>

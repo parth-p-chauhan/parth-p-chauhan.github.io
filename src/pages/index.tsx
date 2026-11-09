@@ -11,22 +11,23 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SkipLink } from "@/components/SkipLink";
 import { TechStack } from "@/components/TechStack";
 import { useReveal } from "@/hooks/useReveal";
-import { loadContent, type LoadedContent } from "@/lib/content";
+import { loadContent, type SiteContent } from "@/lib/content";
 
-interface HomeProps extends LoadedContent {
+interface HomeProps {
+  content: SiteContent;
   year: number;
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
   return {
     props: {
-      ...loadContent(),
+      content: loadContent(),
       year: new Date().getFullYear(),
     },
   };
 };
 
-export default function Home({ content, profileHtml, year }: HomeProps) {
+export default function Home({ content, year }: HomeProps) {
   useReveal();
 
   const ogImage = content.meta.ogImage
@@ -94,7 +95,7 @@ export default function Home({ content, profileHtml, year }: HomeProps) {
           title={content.labels.profile}
           reveal={false}
         >
-          <Profile profile={content.profile} profileHtml={profileHtml} />
+          <Profile profile={content.profile} />
         </Section>
 
         <Section id="networking" number={2} title={content.labels.networking}>

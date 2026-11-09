@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { marked } from "marked";
+import { marked, Renderer } from "marked";
 
 export interface SiteMeta {
   title: string;
@@ -40,7 +40,6 @@ export interface FactWithLink {
   link: {
     label: string;
     href: string;
-    download?: boolean;
   };
 }
 
@@ -98,6 +97,18 @@ const CONTENT_DIR = path.join(process.cwd(), "content");
 const SITE_FILE = path.join(CONTENT_DIR, "site.json");
 const PROFILE_FILE = path.join(CONTENT_DIR, "profile.md");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
+
+marked.use({
+  renderer: {
+    link(token) {
+      const html = Renderer.prototype.link.call(this, token);
+      return html.replace(
+        /^<a /,
+        '<a target="_blank" rel="noopener noreferrer" ',
+      );
+    },
+  },
+});
 
 function fail(field: string, message: string): never {
   throw new Error(`content/site.json: ${field} ${message}`);
@@ -220,9 +231,6 @@ function validateFacts(value: unknown): void {
     const link = expectRecord(record.link, `${field}.link`);
     expectNonEmptyString(link.label, `${field}.link.label`);
     expectHref(link.href, `${field}.link.href`);
-    if (link.download !== undefined) {
-      expectBoolean(link.download, `${field}.link.download`);
-    }
   });
 }
 

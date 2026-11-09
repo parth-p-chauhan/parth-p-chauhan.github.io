@@ -30,7 +30,8 @@ export function Profile({ profile, profileHtml }: ProfileProps) {
                 <a
                   className={styles.textLink}
                   href={fact.link.href}
-                  download={fact.link.download || undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {fact.link.label}{" "}
                   <span className={styles.arrow} aria-hidden="true">

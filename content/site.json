@@ -13,7 +13,7 @@
   "hero": {
     "kicker": "Frontend Engineer",
     "name": "Parth Chauhan",
-    "intro": "Frontend engineer with 5+ years of experience building scalable, high-performance web applications. I work across the stack, from modern frontend architecture to AI-powered integrations, and use AI-assisted engineering to ship quickly without compromising quality."
+    "intro": "Frontend engineer with 5+ years of experience building fast, scalable web products."
   },
   "labels": {
     "profile": "Profile",
@@ -23,8 +23,8 @@
   },
   "profile": {
     "bio": [
-      "Frontend engineer with 5+ years of experience building scalable, high-performance web applications. Skilled in full-stack feature development, modern frontend architecture, and AI-powered application integration.",
-      "I leverage AI-assisted engineering to accelerate development while maintaining code quality, usability, and reliability."
+      "I'm a frontend engineer with 5+ years of experience building scalable, high-performance web applications. I work across modern frontend architecture, full-stack feature development, and AI-powered integrations.",
+      "I care about the details that make an interface feel fast and dependable — rendering performance, Web Vitals, and accessible design systems — and I use AI-assisted engineering to ship quickly without compromising code quality, usability, or reliability."
     ],
     "facts": [
       {

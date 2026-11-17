@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Parth Chauhan — Frontend Engineer",
-    "description": "Parth Chauhan is a frontend engineer with 5+ years of experience building scalable, high-performance web applications with Next.js, React, and TypeScript.",
+    "title": "Parth Chauhan — Software Developer",
+    "description": "Parth Chauhan is a software developer with 5+ years of experience building scalable, high-performance web applications with Next.js, React, and TypeScript.",
     "canonicalUrl": "https://parth-p-chauhan.github.io/",
     "locale": "en",
     "ogImage": "/og.png"
@@ -11,9 +11,9 @@
     "ariaLabel": "Parth Chauhan — back to top"
   },
   "hero": {
-    "kicker": "Frontend Engineer",
+    "kicker": "Software Developer",
     "name": "Parth Chauhan",
-    "intro": "Frontend engineer with 5+ years of experience building fast, scalable web products."
+    "intro": "Software developer with 5+ years of experience building fast, scalable web products."
   },
   "labels": {
     "profile": "Profile",
@@ -23,7 +23,7 @@
   },
   "profile": {
     "bio": [
-      "I'm a frontend engineer with 5+ years of experience building scalable, high-performance web applications. I work across modern frontend architecture, full-stack feature development, and AI-powered integrations.",
+      "I'm a software developer with 5+ years of experience building scalable, high-performance web applications. I work across modern frontend architecture, full-stack feature development, and AI-powered integrations.",
       "I care about the details that make an interface feel fast and dependable — rendering performance, Web Vitals, and accessible design systems — and I use AI-assisted engineering to ship quickly without compromising code quality, usability, or reliability."
     ],
     "facts": [

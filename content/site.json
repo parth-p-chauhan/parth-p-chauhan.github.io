@@ -124,30 +124,18 @@
     },
     {
       "id": "backend-technologies",
-      "label": "Backend",
-      "items": ["Express", "Nest.js", "PostgreSQL"]
+      "label": "Backend Technologies",
+      "items": ["Node.js", "Express.js", "Nest.js", "PostgreSQL"]
     },
     {
       "id": "testing-tools",
-      "label": "Testing",
-      "items": ["React Testing Library", "Vitest", "Playwright"]
-    },
-    {
-      "id": "ai-tools",
-      "label": "AI",
-      "items": ["Claude", "Cursor", "MCPs"]
+      "label": "Testing Tools",
+      "items": ["Jest / Vitest", "React Testing Library", "Playwright"]
     },
     {
       "id": "tools",
       "label": "Tools",
-      "items": [
-        "Git/GitHub",
-        "Vite",
-        "Storybook",
-        "Node.js",
-        "Docker",
-        "Kubernetes"
-      ]
+      "items": ["Git/GitHub", "Storybook", "Vite", "Docker", "Kubernetes"]
     }
   ],
   "footer": {

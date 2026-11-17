@@ -43,6 +43,19 @@
   color: var(--muted);
 }
 
+.jobHighlights {
+  max-width: 56ch;
+  margin: 9px 0 0;
+  padding-left: 1.1em;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.jobHighlights li + li {
+  margin-top: 6px;
+}
+
 .stackList {
   margin: 0;
   border-top: 1px solid var(--border);
@@ -87,7 +100,8 @@
     margin-top: 0;
   }
 
-  .jobDesc {
+  .jobDesc,
+  .jobHighlights {
     margin-top: 7px;
   }
 

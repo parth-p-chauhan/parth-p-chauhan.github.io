@@ -1,7 +1,7 @@
 # Portfolio content
 
-Phase 1 ships placeholder content so the design and content pipeline can be
-built. Replace every item below before the site is considered finished.
+Page copy for Parth Chauhan lives in `site.json`. Edit that file and rebuild;
+no component changes are needed for copy updates.
 
 ## Files
 
@@ -11,25 +11,16 @@ built. Replace every item below before the site is considered finished.
 
 ## Placeholders to replace
 
-### `site.json`
-
-- `meta.description` — generic description
-- `hero.intro` — placeholder intro sentence
-- `profile.bio` — placeholder bio paragraphs
-- `profile.facts[0].value` — `City, Country (TZ)`
-- `profile.facts[1].value` — generic availability wording
-- `networking[]` — LinkedIn, X, and email are placeholders; GitHub is real
-- `experience[]` — company names, roles, dates, and descriptions
-- `stack[]` — generic frontend stack
-
 ### Other files
 
-- `../public/resume.pdf` — placeholder résumé
+- `../public/resume.pdf` — placeholder résumé; replace it with the latest
+  export.
 
 ## Rules
 
 - Keep `id` values unique and kebab-case.
 - Keep arrays in display order.
 - Hrefs must be `https://`, `mailto:`, or root-relative.
-- The site rebuilds content at build time; run `pnpm build` after edits.
+- Each `experience[]` entry needs a `description`, `highlights`, or both.
+- The site rebuilds content at build time; run `vp run build` after edits.
 - Do not use another person's identity as a placeholder.

@@ -61,7 +61,8 @@ export interface ExperienceItem {
   role: string;
   start: string;
   end: string;
-  description: string;
+  description?: string;
+  highlights?: string[];
 }
 
 export interface StackGroup {
@@ -253,7 +254,30 @@ function validateExperience(value: unknown): void {
     expectNonEmptyString(record.role, `${field}.role`);
     expectNonEmptyString(record.start, `${field}.start`);
     expectNonEmptyString(record.end, `${field}.end`);
-    expectNonEmptyString(record.description, `${field}.description`);
+
+    const hasDescription = "description" in record;
+    const hasHighlights = "highlights" in record;
+    if (!hasDescription && !hasHighlights) {
+      fail(field, 'must have at least one of "description" or "highlights"');
+    }
+
+    if (hasDescription) {
+      expectNonEmptyString(record.description, `${field}.description`);
+    }
+
+    if (hasHighlights) {
+      const highlights = expectArray(record.highlights, `${field}.highlights`);
+      if (highlights.length === 0) {
+        fail(`${field}.highlights`, "must not be empty");
+      }
+      highlights.forEach((highlight, highlightIndex) => {
+        expectNonEmptyString(
+          highlight,
+          `${field}.highlights[${highlightIndex}]`,
+        );
+      });
+    }
+
     return record;
   });
 

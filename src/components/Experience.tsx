@@ -17,7 +17,16 @@ export function Experience({ experience }: ExperienceProps) {
           <div>
             <h3 className={styles.jobCompany}>{job.company}</h3>
             <p className={styles.jobRole}>{job.role}</p>
-            <p className={styles.jobDesc}>{job.description}</p>
+            {job.description ? (
+              <p className={styles.jobDesc}>{job.description}</p>
+            ) : null}
+            {job.highlights?.length ? (
+              <ul className={styles.jobHighlights}>
+                {job.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </li>
       ))}

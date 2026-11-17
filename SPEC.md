@@ -129,7 +129,8 @@ display order. The page owns section order; JSON cannot reorder sections.
       "role": "Senior Frontend Engineer",
       "start": "2022",
       "end": "Present",
-      "description": "One or two sentences about scope and impact."
+      "description": "One or two sentences about scope and impact.",
+      "highlights": ["A measurable achievement.", "Another achievement."]
     }
   ],
   "stack": [
@@ -158,6 +159,9 @@ Rules:
   kebab-case; `id` is used only for React keys.
 - `start` and `end` are display strings (`"2022"`, `"Present"`). The UI renders
   `start — end` and does not calculate tenure.
+- `experience[].description` and `experience[].highlights` are both optional, but
+  each role needs at least one. `description` renders as a paragraph and
+  `highlights` renders as a bulleted list.
 - `stack[].items` is a list of short labels, joined with `, `.
 - At launch every array must be non-empty. A section whose array is empty is a
   content error, not a hidden section.

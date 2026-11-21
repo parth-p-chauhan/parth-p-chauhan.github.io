@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   // Use Next's type checker so build mode filters out .next/dev/types.
   // The default tsc CLI path checks both type directories and reports duplicate
   // identifiers for the generated route validators.
-  experimental: { useTypeScriptCli: false },
+  experimental: { useTypeScriptCli: true },
 };
 
 export default nextConfig;
